@@ -21,3 +21,16 @@ example of using the tool:
 
 This line will parse the file located at C:\path\example.log and will output the warning lines it finds without any duplications.
 
+-------------------
+This repository aims to showcase certain ideas, including how to organize a project and manage responsibilities, and it is not yet finished.
+
+To further improve the repository:
+- add interfaces for parsers, emitters and readers
+- make the severity as a value object
+- make the path as a value object
+- change the core code to work with the blob and severity objects.
+- by making all those change all validation logic should go into the value objects and domain services
+- application services (which are located in the folder `services`) will be left with the overall usecase logic
+
+
+
