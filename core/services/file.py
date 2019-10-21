@@ -6,33 +6,33 @@ from core.readers.file import file_reader, folder_reader
 from core.model.severity import LogLineSeverity
 
 
-def _run_parsers_and_emitters(blob, parsers, emitters):
-    blob.lines = run_parsers_on_blob(blob.lines, parsers)
+def _run_parsers_and_emitters(blob, parsers, emitters, no_duplicates):
+    blob.lines = run_parsers_on_blob(blob.lines, parsers, no_duplicates=no_duplicates)
     [emitter(blob) for emitter in emitters]
 
 
-def _execute_file_logic(path, parsers, emitters):
+def _execute_file_logic(path, parsers, emitters, no_duplicates):
     blob = file_reader(path)
-    _run_parsers_and_emitters(blob, parsers, emitters)
+    _run_parsers_and_emitters(blob, parsers, emitters, no_duplicates)
 
 
-def _execute_folder_logic(path, parsers, emitters):
+def _execute_folder_logic(path, parsers, emitters, no_duplicates):
     blobs = folder_reader(path)
-    [_run_parsers_and_emitters(blob, parsers, emitters) for blob in blobs]
+    [_run_parsers_and_emitters(blob, parsers, emitters, no_duplicates) for blob in blobs]
 
 
-def file_severity_to_console(path, severity):
+def file_severity_to_console(path, severity, no_duplicates):
     if os.path.isdir(path):
         raise Exception('Following path leads to directory: {}'.format(path))
     LogLineSeverity.validate_severity(severity)
-    _execute_file_logic(path, [parse_by_severity(severity)], [blob_console_emitter])
+    _execute_file_logic(path, [parse_by_severity(severity)], [blob_console_emitter], no_duplicates)
 
 
-def folder_severity_to_console(path, severity):
+def folder_severity_to_console(path, severity, no_duplicates):
     if not os.path.isdir(path):
         raise Exception('Following path leads to file: {}'.format(path))
     LogLineSeverity.validate_severity(severity)
-    _execute_folder_logic(path, [parse_by_severity(severity)], [blob_console_emitter])
+    _execute_folder_logic(path, [parse_by_severity(severity)], [blob_console_emitter], no_duplicates)
 
 
 
