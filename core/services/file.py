@@ -7,7 +7,7 @@ from core.model.severity import LogLineSeverity
 
 
 def _run_parsers_and_emitters(blob, parsers, emitters):
-    blob.lines = run_parsers_on_blob(blob.lines, parsers, remove_duplicates=True)
+    blob.lines = run_parsers_on_blob(blob.lines, parsers)
     [emitter(blob) for emitter in emitters]
 
 
