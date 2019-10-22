@@ -14,7 +14,12 @@ def _get_name_from_path(path):
 
 def _get_file_paths_from_folder(folder_path):
     try:
-        return [f for f in listdir(folder_path) if isfile(join(folder_path, f))]
+        files = []
+        for name in listdir(folder_path):
+            full_path = join(folder_path, name)
+            if isfile(full_path):
+                files.append(full_path)
+        return files
     except Exception as e:
         raise Exception('Could not get file paths from {}'.format(folder_path)) from e
 

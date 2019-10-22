@@ -1,3 +1,6 @@
 /venv/
 /.idea/
 example.log
+/exampleLogs/
+*/__pycache__/
+*/*/__pycache__/
