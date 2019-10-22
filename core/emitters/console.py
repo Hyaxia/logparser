@@ -1,4 +1,4 @@
-def blob_console_emitter(blob):
+def console_emitter(blob):
     print(blob)
 
 

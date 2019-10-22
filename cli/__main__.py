@@ -1,5 +1,7 @@
 import click
-from core.services.file import file_severity_to_console
+import traceback
+from core.services import console_emitter_service, dest_file_emitter_service, severity_parser_service
+from core.services import run_file_logic_service
 
 
 @click.command()
@@ -7,13 +9,19 @@ from core.services.file import file_severity_to_console
 @click.option('--severity', default='ERROR', help='This is the severity of the log you want to get')
 @click.option('--console', default=True, is_flag=True)
 @click.option('--no-duplicates', default=False, is_flag=True)
-def cli(file, severity, console, no_duplicates):
+@click.option('--dest-file', help='This is the path to which the results will be written')
+def cli(file, severity, console, no_duplicates, dest_file):
     try:
+        parsers = []
+        emitters = []
+        parsers.append(severity_parser_service(severity))
         if console:
-            file_severity_to_console(file, severity, no_duplicates)
-        else:
-            print("Please select the printing option :)")
+            emitters.append(console_emitter_service())
+        if dest_file:
+            emitters.append(dest_file_emitter_service(dest_file))
+        run_file_logic_service(file, parsers, emitters, no_duplicates)
     except Exception as e:
+        traceback.print_exc()
         raise click.ClickException(e)
 
 

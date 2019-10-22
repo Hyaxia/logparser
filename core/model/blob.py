@@ -9,7 +9,7 @@ class Blob(object):
         for key, value in self.info.items():
             additional_info_as_string += "{}: {}".format(key, value)
         lines_as_string = ''.join(self.lines)
-        return "name: {},\nadditional info: {},\n\n{} \n -----------------------------------------------------"\
+        return "name: {},\nadditional info: {},\n\n{} \n -----------------------------------------------------\n"\
             .format(self.name, additional_info_as_string, lines_as_string)
 
 
