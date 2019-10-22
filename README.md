@@ -27,10 +27,7 @@ This repository aims to showcase certain ideas, including how to organize a proj
 To further improve the repository:
 - add interfaces for parsers, emitters and readers
 - make the severity as a value object
-- make the path as a value object
 - change the core code to work with the blob and severity objects.
-- by making all those change all validation logic should go into the value objects and domain services
-- application services (which are located in the folder `services`) will be left with the overall usecase logic
 
 
 
