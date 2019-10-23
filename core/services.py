@@ -7,8 +7,8 @@ from core.model.severity import LogLineSeverity
 from core.model.file import Path
 
 
-def _run_parsers_and_emitters(blob, parsers, emitters, no_duplicates):
-    blob.lines = run_parsers_on_blob(blob.lines, parsers, no_duplicates=no_duplicates)
+def _run_parsers_and_emitters(blob, parsers, emitters):
+    blob.lines = run_parsers_on_blob(blob.lines, parsers)
     [emitter(blob) for emitter in emitters]
 
 
@@ -26,16 +26,16 @@ def dest_file_emitter_service(dest_path):
     return get_blob_file_emitter(dest_path)
 
 
-def run_file_logic_service(path, parsers, emitters, no_duplicates):
+def run_file_logic_service(path, parsers, emitters):
     file_path = Path(path)
     blob = file_reader(file_path)
-    _run_parsers_and_emitters(blob, parsers, emitters, no_duplicates)
+    _run_parsers_and_emitters(blob, parsers, emitters)
 
 
-def run_folder_logic_service(path, parsers, emitters, no_duplicates):
+def run_folder_logic_service(path, parsers, emitters):
     folder_path = Path(path)
     blobs = folder_reader(folder_path)
-    [_run_parsers_and_emitters(blob, parsers, emitters, no_duplicates) for blob in blobs]
+    [_run_parsers_and_emitters(blob, parsers, emitters) for blob in blobs]
 
 
 

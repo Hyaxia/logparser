@@ -9,9 +9,8 @@ from core.services import run_file_logic_service, run_folder_logic_service
 @click.option('--is-directory', is_flag=True, help='This is a flag that indicates if the path passed is a file or directory')
 @click.option('--severity', default='ERROR', help='This is the severity of the log you want to get')
 @click.option('--console', default=True, is_flag=True)
-@click.option('--no-duplicates', default=False, is_flag=True)
 @click.option('--dest-file', help='This is the path to which the results will be written')
-def cli(path, is_directory, severity, console, no_duplicates, dest_file):
+def cli(path, is_directory, severity, console, dest_file):
     try:
         parsers = []
         emitters = []
@@ -21,9 +20,9 @@ def cli(path, is_directory, severity, console, no_duplicates, dest_file):
         if dest_file:
             emitters.append(dest_file_emitter_service(dest_file))
         if is_directory:
-            run_folder_logic_service(path, parsers, emitters, no_duplicates)
+            run_folder_logic_service(path, parsers, emitters)
         else:
-            run_file_logic_service(path, parsers, emitters, no_duplicates)
+            run_file_logic_service(path, parsers, emitters)
     except Exception as e:
         traceback.print_exc()
         raise click.ClickException(e)
