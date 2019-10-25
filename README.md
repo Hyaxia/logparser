@@ -23,9 +23,10 @@ This line will parse the file located at C:\path\example.log and will output the
 
 -------------------
 This repository aims to showcase certain ideas, including how to organize a project and manage responsibilities, and it is not yet finished.
+Intentionally there is a really low amount of usage of classes and interfaces, to make the showcase of those principles as easy as possible.
 
 To further improve the repository:
-- add interfaces for parsers, emitters and readers
+- add interfaces for parsers, emitters and readers, meaning that the functions will be replaced with classes that fulfill there interfaces
 - make the severity as a value object
 - change the core code to work with the blob and severity objects.
 
