@@ -1,8 +1,13 @@
-def get_blob_file_emitter(path):
-    def inner(blob):
+from core.model.emitter import ABCEmitter
+
+
+class FileEmitter(ABCEmitter):
+    def __init__(self, path):
+        self.path = path
+
+    def emit(self, blob):
         try:
-            with open(path, 'a') as f:
+            with open(self.path, 'a') as f:
                 f.write(str(blob))
         except Exception as e:
-            raise Exception('Could not write to {}'.format(path)) from e
-    return inner
+            raise Exception('Could not write to {}'.format(self.path)) from e
