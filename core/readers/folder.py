@@ -1,11 +1,11 @@
 from os import listdir
 from os.path import isfile, join
 
-from core.model.reader import ABCMultiReader
+from core.model.reader import ABCReader
 from core.readers.file import FileReader
 
 
-class FolderReader(ABCMultiReader):
+class FolderReader(ABCReader):
     def __init__(self, path):
         self.path = path
 
@@ -22,4 +22,7 @@ class FolderReader(ABCMultiReader):
 
     def read(self):
         file_paths = self._get_file_paths_from_folder()
-        return [FileReader(file_path).read() for file_path in file_paths]
+        blobs = []
+        for path in file_paths:
+            blobs.extend(FileReader(path).read())
+        return blobs

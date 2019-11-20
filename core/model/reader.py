@@ -5,12 +5,5 @@ from core.model.blob import Blob
 
 class ABCReader(ABC):
     @abstractmethod
-    def read(self) -> Blob:
-        pass
-
-
-class ABCMultiReader(ABC):
-    @abstractmethod
     def read(self) -> List[Blob]:
         pass
-

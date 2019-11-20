@@ -34,7 +34,7 @@ class FileReader(ABCReader):
         lines = self._read_file_content()
         name = self._get_name_from_path()
         last_modified = self._get_modified_time()
-        return Blob(name, lines, info={"last_modified": last_modified})
+        return [Blob(name, lines, info={"last_modified": last_modified})]
 
 
 

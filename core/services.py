@@ -27,15 +27,20 @@ def dest_file_emitter_service(dest_path):
     return FileEmitter(dest_path)
 
 
-def run_file_logic_service(path, parsers, emitters):
+def file_reader_service(path):
     file_path = Path(path)
-    blob = FileReader(file_path).read()
-    _run_parsers_and_emitters(blob, parsers, emitters)
+    return FileReader(file_path)
 
 
-def run_folder_logic_service(path, parsers, emitters):
+def folder_reader_service(path):
     folder_path = Path(path)
-    blobs = FolderReader(folder_path).read()
+    return FolderReader(folder_path)
+
+
+def main_logic(readers, parsers, emitters):
+    blobs = []
+    for runner in readers:
+        blobs.extend(runner.read())
     [_run_parsers_and_emitters(blob, parsers, emitters) for blob in blobs]
 
 
